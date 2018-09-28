@@ -1,4 +1,4 @@
-import { render } from "../dom-effect";
+import { render } from ".";
 
 let prevTree;
 
