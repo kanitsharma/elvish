@@ -1,4 +1,4 @@
-import { MulticastSource, never, runEffects, tap } from "@most/core";
+import { MulticastSource, never, runEffects, tap, scan, map } from "@most/core";
 import { newDefaultScheduler } from "@most/scheduler";
 import render from "./render";
 import View from "./view";
@@ -10,13 +10,21 @@ const scheduler = newDefaultScheduler();
 const createAction$ = () => new MulticastSource(never());
 
 // Adding event(time, value) to the action sink
-const dispatch = scheduler => action$ => action =>
+export const dispatch = scheduler => action$ => action =>
   action$.event(scheduler.currentTime(), action);
 
 // Initial State
 const initialState = {
   counter: 0
 };
+
+const reducer = action => initialState;
+
+// Passing state to view
+const mapStateToView = state => View(state);
+
+// Creating action stream
+const action$ = createAction$();
 
 // Getting nextState from action$
 const state$ = scan(reducer, initialState, action$);
@@ -27,4 +35,4 @@ const vTree$ = map(mapStateToView, state$);
 const root = document.getElementById("root");
 
 // running Application
-runEffects(tap(render(root)), vTree$);
+runEffects(tap(render(root), vTree$), scheduler);

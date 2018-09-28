@@ -1,9 +1,9 @@
 import { render } from "./dom-effect";
 
-let prevView;
+let prevTree;
 
 export default root => vtree => {
-  if (!prevView) {
+  if (!prevTree) {
     render(root, vtree);
     prevTree = vtree;
   } else {
