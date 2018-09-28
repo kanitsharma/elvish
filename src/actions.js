@@ -1,15 +1,16 @@
 import Type from "union-type";
-import { dispatch } from "./index";
+import { dispatch } from "./vmost";
 
-const ActionType = {
+const DefaultActionType = {
   type: String,
   payload: Number
 };
 
 export const Actions = Type({
-  INC: ActionType,
-  DEC: ActionType
+  INC: DefaultActionType,
+  DEC: DefaultActionType,
+  INIT: DefaultActionType // This is necessary to get the initial state
 });
 
-export const createAction = action => payload =>
+export const createAction = (action, payload) =>
   dispatch(Actions[action](action)(payload));
