@@ -21,13 +21,13 @@ const unCurry2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 const mapStateToView = view => state => view(state);
 
 // running Application
-export default ({ view, init, Msg, root, update }) => {
+export default ({ View, Init, Msg, Root, Update }) => {
   // Folding action stream with init to get currentState
-  const state$ = scan(unCurry2(update(Msg)), init, action$);
+  const state$ = scan(unCurry2(Update(Msg)), Init, action$);
 
   // Getting vtree$ from state$
-  const vTree$ = map(mapStateToView(view), state$);
+  const vTree$ = map(mapStateToView(View), state$);
 
   // Running All the effects
-  runEffects(tap(render(root), vTree$), scheduler);
+  runEffects(tap(render(Root), vTree$), scheduler);
 };

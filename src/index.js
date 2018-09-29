@@ -2,62 +2,53 @@ import run from "./vmost";
 import { f, onClick } from "./dom-effect";
 import { Type } from './vmost'
 
-// Model
 const Model = Type({
   Model: {
     counter: Number
   }
 })
 
-const init = Model.ModelOf({
+// init :: Model
+const Init = Model.ModelOf({
   counter: 0
 })
 
-// Update
-
-const update = msg => model => msg.case(
+// update :: Msg -> Model -> (Msg -> Model)
+const Update = msg => model => msg.case(
   {
-    INC: (x) => ({ ...model, counter: model.counter + x }),
-    DEC: (x) => ({ ...model, counter: model.counter - x }),
+    Increment: () => ({ ...model, counter: model.counter + 1 }),
+    Decrement: () => ({ ...model, counter: model.counter - 1 }),
     _: () => state
   }
 )
 
-
-// Msg
 const Msg = Type({
-  INC: [Number],
-  DEC: [Number]
+  Increment: [],
+  Decrement: []
 });
 
-
-
-// View
-const increment = dispatch => () => dispatch(Msg.INC(1));
-const decrement = dispatch => () => dispatch(Msg.DEC(1));
-
-const view = ({ counter }) =>
+// view :: Model -> Html Msg
+const View = ({ counter }) =>
   f(
     "div",
     [],
     [
-      f("button", [onClick(increment)], ["+"]),
+      f("button", [onClick(Msg.Increment)], ["+"]),
       Text(counter),
-      f("button", [onClick(decrement)], ["-"])
+      f("button", [onClick(Msg.Decrement)], ["-"])
     ]
   );
 
 const Text = value => f("span", [], ["   " + value.toString() + "   "]);
 
 
-
-
 // Run
-const root = document.getElementById("root");
+const Root = document.getElementById("root");
+
 run({
-  view,
-  update,
+  View,
+  Update,
   Msg,
-  init,
-  root
+  Init,
+  Root
 });

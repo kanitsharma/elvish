@@ -8,6 +8,6 @@ export const id = name => ({
   id: name
 });
 
-export const onClick = fn => ({
-  onClick: fn(dispatch)
+export const onClick = Msg => ({
+  onClick: _ => dispatch(Msg)
 });
