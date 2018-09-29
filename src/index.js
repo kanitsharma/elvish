@@ -1,8 +1,8 @@
-import run, { dispatch } from "./vmost";
+import run from "./vmost";
 import { f, onClick } from "./dom-effect";
 import { Type } from './vmost'
 
-
+// Model
 const Model = Type({
   Model: {
     counter: Number
@@ -15,12 +15,9 @@ const init = Model.ModelOf({
 
 // Update
 
-const update = msg => model => msg.caseOn(
+const update = msg => model => msg.case(
   {
-    INC: (x) => {
-      console.log(x)
-      return ({ ...model, counter: model.counter + 1 })
-    },
+    INC: (x) => ({ ...model, counter: model.counter + x }),
     DEC: (x) => ({ ...model, counter: model.counter - x }),
     _: () => state
   }

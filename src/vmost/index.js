@@ -15,7 +15,7 @@ const action$ = new MulticastSource(never());
 export const dispatch = action =>
   action$.event(scheduler.currentTime(), action);
 
-const flip2 = fn => (arg1, arg2) => fn(arg2, arg1)
+const unCurry2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
 // Passing state to view
 const mapStateToView = view => state => view(state);
@@ -23,7 +23,7 @@ const mapStateToView = view => state => view(state);
 // running Application
 export default ({ view, init, Msg, root, update }) => {
   // Folding action stream with init to get currentState
-  const state$ = scan(flip2(update(Msg)), init, action$);
+  const state$ = scan(unCurry2(update(Msg)), init, action$);
 
   // Getting vtree$ from state$
   const vTree$ = map(mapStateToView(view), state$);
