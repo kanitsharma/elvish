@@ -1,3 +1,5 @@
+import { dispatch } from '../vmost'
+
 export const className = name => ({
   class: name
 });
@@ -7,5 +9,5 @@ export const id = name => ({
 });
 
 export const onClick = fn => ({
-  onClick: fn
+  onClick: fn(dispatch)
 });
