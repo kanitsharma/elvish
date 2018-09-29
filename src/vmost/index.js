@@ -1,6 +1,6 @@
 import { MulticastSource, never, runEffects, tap, scan, map } from "@most/core";
 import { newDefaultScheduler } from "@most/scheduler";
-import render from "../dom-effect/render";
+import { render } from "../dom-effect";
 import { Actions } from "../actions";
 
 // Application Scheduler

@@ -1,13 +1,14 @@
-import { render } from ".";
+import { patch } from "./vdom";
 
+// Well this is ugly -_-
 let prevTree;
 
 export default root => vtree => {
   if (!prevTree) {
-    render(root, vtree);
+    patch(root, vtree);
     prevTree = vtree;
   } else {
-    render(root, vtree, prevTree);
+    patch(root, vtree, prevTree);
     prevTree = vtree;
   }
 };

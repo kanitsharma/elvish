@@ -11,6 +11,7 @@
     "union-type": "^0.4.1"
   },
   "scripts": {
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "build": "parcel build src/vmost/index.js"
   }
 }
