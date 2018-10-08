@@ -19,3 +19,5 @@ export const onEnter = Msg => ({
 export const value = value => ({
   value
 })
+
+export const Text = value => value.toString()
