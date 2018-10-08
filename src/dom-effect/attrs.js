@@ -9,5 +9,9 @@ export const id = name => ({
 });
 
 export const onClick = Msg => ({
-  onClick: _ => dispatch(Msg)
+  onClick: e => dispatch(Msg)
 });
+
+export const onEnter = Msg => ({
+  onChange: e => dispatch(Msg(e))
+})
