@@ -1,5 +1,5 @@
 import run from "./vmost";
-import { f, onClick, onEnter } from "./dom-effect";
+import { f, onClick } from "./dom-effect";
 import { Type } from './vmost'
 
 const Model = Type({
@@ -13,7 +13,7 @@ const Init = Model.ModelOf({
   counter: 0
 })
 
-// update :: Msg -> Model -> Model
+// update :: Msg -> Model -> (Msg -> Model)
 const Update = msg => model => msg.case(
   {
     Increment: () => ({ ...model, counter: model.counter + 1 }),
@@ -24,8 +24,7 @@ const Update = msg => model => msg.case(
 
 const Msg = Type({
   Increment: [],
-  Decrement: [],
-  Updatetext: [Number]
+  Decrement: []
 });
 
 // view :: Model -> Html Msg
@@ -36,8 +35,7 @@ const View = ({ counter }) =>
     [
       f("button", [onClick(Msg.Increment)], ["+"]),
       Text(counter),
-      f("button", [onClick(Msg.Decrement)], ["-"]),
-      f("input", [onEnter(e => Msg.Updatetext(e.target.value))], [])
+      f("button", [onClick(Msg.Decrement)], ["-"])
     ]
   );
 

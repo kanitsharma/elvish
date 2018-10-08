@@ -13,7 +13,7 @@ const action$ = new MulticastSource(never());
 
 // Adding event(time, value) to the action sink
 export const dispatch = action =>
-  console.log(action) || action$.event(scheduler.currentTime(), action);
+  action$.event(scheduler.currentTime(), action);
 
 const unCurry2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
