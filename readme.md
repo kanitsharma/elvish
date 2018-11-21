@@ -1,6 +1,9 @@
 # Elf
+Elm architecture re-architectured :) in javascript using
 
-Elm architecture re-architectured :) in javascript using @most/core, virtual-dom, union-type.
+ - [@most/core](https://github.com/mostjs/core)
+ - [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
+ - [union-type](https://github.com/paldepind/union-type)
 
 ## Example
 
