@@ -1,5 +1,5 @@
 import run from "./vmost";
-import { f, onClick, onEnter, value, Text } from "./dom-effect";
+import { f, onClick, onEnter, value, Text, h } from "./dom-effect";
 import { Type } from './vmost'
 
 const Model = Type({

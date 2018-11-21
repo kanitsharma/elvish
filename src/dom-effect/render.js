@@ -1,14 +1,19 @@
-import { patch } from "./vdom";
+import diff from 'virtual-dom/diff'
+import patch from 'virtual-dom/patch'
+import createElement from 'virtual-dom/create-element'
 
-// Well this is ugly -_-
-let prevTree;
+let tree, rootNode
 
-export default root => vtree => {
-  if (!prevTree) {
-    patch(root, vtree);
-    prevTree = vtree;
-  } else {
-    patch(root, vtree, prevTree);
-    prevTree = vtree;
+export default root => newTree => {
+  if (!tree) {
+    rootNode = createElement(newTree);
+    root.appendChild(rootNode);
+    tree = newTree
+  }
+
+  if (tree) {
+    const patches = diff(tree, newTree);
+    patch(rootNode, patches);
+    tree = newTree;
   }
 };

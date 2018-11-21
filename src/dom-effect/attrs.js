@@ -9,7 +9,7 @@ export const id = name => ({
 });
 
 export const onClick = Msg => ({
-  onClick: _ => dispatch(Msg)
+  onclick: _ => dispatch(Msg)
 });
 
 export const onEnter = Msg => ({
@@ -24,4 +24,4 @@ export const value = value => ({
   value
 })
 
-export const Text = value => value.toString()
+export const Text = value => String(value)

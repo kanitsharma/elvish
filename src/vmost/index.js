@@ -12,8 +12,10 @@ const scheduler = newDefaultScheduler();
 const action$ = new MulticastSource(never());
 
 // Adding event(time, value) to the action sink
-export const dispatch = action =>
-  action$.event(scheduler.currentTime(), action);
+export const dispatch = action => {
+  console.log(action)
+  return action$.event(scheduler.currentTime(), action);
+}
 
 const unCurry2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
