@@ -5,8 +5,8 @@ Elm architecture re-architectured :) in javascript using @most/core, virtual-dom
 ## Example
 
 ```javascript
-    import run from "./lib/core";
-import { f, onClick, onEnter, value, Text, h } from "./lib/dom-effect";
+import run from "./lib/core";
+import { f, onClick, onEnter, value, Text } from "./lib/dom-effect";
 import { Type } from './lib/core'
 
 const Model = Type({
