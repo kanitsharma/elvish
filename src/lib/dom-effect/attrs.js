@@ -1,4 +1,4 @@
-import { dispatch } from '../vmost'
+import { dispatch } from '../core'
 
 export const className = name => ({
   class: name

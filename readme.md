@@ -1,4 +1,11 @@
-import run from "./lib/core";
+# Elf
+
+Elm architecture re-architectured :) in javascript using @most/core, virtual-dom, union-type.
+
+## Example
+
+```javascript
+    import run from "./lib/core";
 import { f, onClick, onEnter, value, Text, h } from "./lib/dom-effect";
 import { Type } from './lib/core'
 
@@ -55,3 +62,4 @@ run({
   Init,
   Root
 });
+```
