@@ -1,19 +1,14 @@
 import run from "../lib/core";
 import { f, onClick, onEnter, value, Text, h } from "../lib/dom-effect";
-import { Type, Effect } from '../lib/core'
+import { Union, Record, Effect } from '../lib/core/types'
 
-const Model = Type({
-  Model: {
-    counter: Number,
-    text: String
-  }
+const Model = Record({
+  counter: Number,
+  text: String
 })
 
 // init :: Model
-const Init = Model.ModelOf({
-  counter: 0,
-  text: "Hello"
-})
+const Init = Model(0, 'Hello')
 
 // delayedIncrement :: () -> Effect
 const delayedIncrement = _ => Effect(
@@ -35,7 +30,7 @@ const Update = msg => model => msg.case(
   }
 )
 
-const Msg = Type({
+const Msg = Union({
   Increment: [],
   Decrement: [],
   UpdateText: [String]

@@ -1,10 +1,6 @@
 import { MulticastSource, never, runEffects, tap, scan, map, now, continueWith, fromPromise, chain } from "@most/core";
 import { newDefaultScheduler } from "@most/scheduler";
 import { render } from "../dom-effect";
-import Type from 'union-type'
-import { join, resolve } from "upath";
-
-export { Type }
 
 // Application Scheduler
 const scheduler = newDefaultScheduler();
@@ -15,8 +11,6 @@ const action$ = new MulticastSource(never());
 // Adding event(time, value) to the action sink
 export const dispatch = action =>
   action$.event(scheduler.currentTime(), action);
-
-export const Effect = sideEffect => _ => new Promise((resolve, reject) => sideEffect(resolve, reject))
 
 const apply2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
