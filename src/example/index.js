@@ -1,6 +1,6 @@
 import run from "../lib/core";
 import { f, onClick, onEnter, value, Text, h } from "../lib/dom-effect";
-import { Type } from '../lib/core'
+import { Type, Effect } from '../lib/core'
 
 const Model = Type({
   Model: {
@@ -15,11 +15,15 @@ const Init = Model.ModelOf({
   text: "Hello"
 })
 
-const delayedIncrement = () => new Promise(resolve => {
-  setTimeout(_ => {
-    resolve(Msg.Decrement)
-  }, 1000)
-})
+// delayedIncrement :: () -> Effect
+const delayedIncrement = _ => Effect(
+  resolve => {
+    setTimeout(_ => {
+      resolve(Msg.Decrement)
+    }, 1000)
+  },
+  reject => reject()
+)
 
 // update :: Msg -> Model -> (Msg -> Model)
 const Update = msg => model => msg.case(

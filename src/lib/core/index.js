@@ -2,7 +2,7 @@ import { MulticastSource, never, runEffects, tap, scan, map, now, continueWith, 
 import { newDefaultScheduler } from "@most/scheduler";
 import { render } from "../dom-effect";
 import Type from 'union-type'
-import { join } from "upath";
+import { join, resolve } from "upath";
 
 export { Type }
 
@@ -16,13 +16,15 @@ const action$ = new MulticastSource(never());
 export const dispatch = action =>
   action$.event(scheduler.currentTime(), action);
 
+export const Effect = sideEffect => _ => new Promise((resolve, reject) => sideEffect(resolve, reject))
+
 const apply2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
 // Passing state to view
 const mapStateToView = view => state => view(state);
 
 const performSideEffects = effect => {
-  effect.then(dispatch)
+  effect().then(dispatch)
   return false
 }
 
