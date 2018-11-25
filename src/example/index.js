@@ -1,6 +1,6 @@
-import run from "./lib/core";
-import { f, onClick, onEnter, value, Text, h } from "./lib/dom-effect";
-import { Type } from './lib/core'
+import run from "../lib/core";
+import { f, onClick, onEnter, value, Text, h } from "../lib/dom-effect";
+import { Type } from '../lib/core'
 
 const Model = Type({
   Model: {
