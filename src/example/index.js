@@ -15,10 +15,16 @@ const Init = Model.ModelOf({
   text: "Hello"
 })
 
+const delayedIncrement = () => new Promise(resolve => {
+  setTimeout(_ => {
+    resolve(Msg.Decrement)
+  }, 1000)
+})
+
 // update :: Msg -> Model -> (Msg -> Model)
 const Update = msg => model => msg.case(
   {
-    Increment: () => ({ ...model, counter: model.counter + 1 }),
+    Increment: () => [model, delayedIncrement()],
     Decrement: () => ({ ...model, counter: model.counter - 1 }),
     UpdateText: text => ({ ...model, text }),
     _: () => model
