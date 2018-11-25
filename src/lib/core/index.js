@@ -1,4 +1,4 @@
-import { MulticastSource, never, runEffects, tap, scan, map, now, continueWith, fromPromise, chain } from "@most/core";
+import { MulticastSource, never, runEffects, tap, scan, map } from "@most/core";
 import { newDefaultScheduler } from "@most/scheduler";
 import { render } from "../dom-effect";
 
