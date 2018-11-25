@@ -50,10 +50,14 @@ const View = ({ counter, text }) =>
       f("button", [onClick(Msg.Increment)], ["+"]),
       f("span", [], [Text(counter)]),
       f("button", [onClick(Msg.Decrement)], ["-"]),
-      f("input", [onEnter(e => Msg.UpdateText(e.target.value)), value(text)], []),
+      TextBox(text, Msg.UpdateText),
       f("h1", [], [Text(text)])
     ]
   );
+
+const TextBox = (text, updateText) => (
+  f("input", [onEnter(e => updateText(e.target.value)), value(text)], [])
+)
 
 // Run
 const Root = document.getElementById("root");
