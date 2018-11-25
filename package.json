@@ -13,6 +13,6 @@
   },
   "scripts": {
     "start": "parcel index.html",
-    "build": "parcel build src/vmost/index.js"
+    "build": "parcel build src/index.js"
   }
 }
