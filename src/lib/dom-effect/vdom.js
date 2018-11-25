@@ -6,6 +6,6 @@ export { h as h }
 export const f = (type, propList, children) => h(
   type,
   reduceProps(propList),
-  children
+  children.filter(x => x)
 );
 

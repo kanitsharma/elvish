@@ -18,7 +18,7 @@ const apply2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 const mapStateToView = view => state => view(state);
 
 const performSideEffects = effect => {
-  effect().then(dispatch)
+  effect().then(dispatch).catch(dispatch)
   return false
 }
 

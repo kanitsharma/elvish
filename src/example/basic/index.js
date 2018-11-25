@@ -1,6 +1,6 @@
-import run from "../lib/core";
-import { f, onClick, onEnter, value, Text, h } from "../lib/dom-effect";
-import { Union, Record, Effect } from '../lib/core/types'
+import run from "../../lib/core";
+import { f, onClick, onEnter, value, Text, h } from "../../lib/dom-effect";
+import { Union, Record, Effect } from '../../lib/core/types'
 
 const Model = Record({
   counter: Number,
@@ -10,31 +10,19 @@ const Model = Record({
 // init :: Model
 const Init = Model(0, 'Hello')
 
-// delayedIncrement :: () -> Effect
-const delayedIncrement = _ => Effect(
-  resolve => {
-    setTimeout(_ => {
-      resolve(Msg.Decrement)
-    }, 1000)
-  },
-  reject => reject()
-)
-
-// update :: Msg -> Model -> (Msg -> Model)
-const Update = msg => model => msg.case(
-  {
-    Increment: () => [model, delayedIncrement()],
-    Decrement: () => ({ ...model, counter: model.counter - 1 }),
-    UpdateText: text => ({ ...model, text }),
-    _: () => model
-  }
-)
-
 const Msg = Union({
   Increment: [],
   Decrement: [],
   UpdateText: [String]
 });
+
+// update :: Msg -> Model -> (Msg -> Model)
+const Update = msg => model => msg.case({
+  Increment: () => ({ ...model, counter: model.counter + 1 }),
+  Decrement: () => ({ ...model, counter: model.counter - 1 }),
+  UpdateText: text => ({ ...model, text }),
+  _: () => model
+})
 
 // view :: Model -> Html Msg
 const View = ({ counter, text }) =>
