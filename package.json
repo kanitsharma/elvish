@@ -12,6 +12,7 @@
     "virtual-dom": "^2.1.1"
   },
   "scripts": {
-    "start": "parcel src/example/httpExample/index.html"
+    "start:basic": "parcel example/basic/index.html",
+    "start:http": "parcel example/http/index.html"
   }
 }
