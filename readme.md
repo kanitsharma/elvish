@@ -242,3 +242,8 @@ You can think of an elf application as pure and functional code running in an im
       .catch(err => reject(Msg.FetchError))
   })
 ```
+Only way to run Effects in an elf application is to return a tuple from the update function containing [ Model, Effect ].
+
+```javascript
+  FetchData: () => [model, fetchUserData(model.url)],
+```
