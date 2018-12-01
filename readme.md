@@ -10,7 +10,7 @@ Built with
 
 ## Basic Example
 
-The logic of every Elm program will break up into three cleanly separated parts:
+The logic of every Elf program will break up into three cleanly separated parts:
 
 - Model — the state of your application
 - Update — a way to update your state
