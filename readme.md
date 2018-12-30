@@ -1,7 +1,7 @@
-# Elf
+# Elvish
  A functional, reactive and some what type safe javascript library to build UIs 
 
-Elf is heavily inspired from elm-architecture, it is an effort to implement the type safe and functional architecture that elm provides in a non typed language like javascript.
+Elvish is heavily inspired from elm-architecture, it is an effort to implement the type safe and functional architecture that elm provides in a non typed language like javascript.
 
 Built with
  - [@most/core](https://github.com/mostjs/core)
@@ -10,7 +10,7 @@ Built with
 
 ## Basic Example
 
-The logic of every Elf program will break up into three cleanly separated parts:
+The logic of every Elvish program will break up into three cleanly separated parts:
 
 - Model — the state of your application
 - Update — a way to update your state
@@ -170,7 +170,7 @@ The logic of every Elf program will break up into three cleanly separated parts:
 
 ### Union Type
 
-Union types are an important part of an elf application. 
+Union types are an important part of an elvish application. 
 
 - Example
 
@@ -227,9 +227,9 @@ Union types are an important part of an elf application.
 
 ### Effect type
 
-Effect types are used to run side effects in an elf application. Effects can be thought of as a lazy promise, basically the idea is to abstract the side effects from your pure code and running them separately, so your code stays pure even when you are doing side effects.
+Effect types are used to run side effects in an elvish application. Effects can be thought of as a lazy promise, basically the idea is to abstract the side effects from your pure code and running them separately, so your code stays pure even when you are doing side effects.
 
-You can think of an elf application as pure and functional code running in an imperative shell.
+You can think of an elvish application as pure and functional code running in an imperative shell.
 
 - Example
 
@@ -242,7 +242,7 @@ You can think of an elf application as pure and functional code running in an im
       .catch(err => reject(Msg.FetchError))
   })
 ```
-Only way to run Effects in an elf application is to return a tuple from the update function containing [ Model, Effect ].
+Only way to run Effects in an elvish application is to return a tuple from the update function containing [ Model, Effect ].
 
 ```javascript
   FetchData: () => [model, fetchUserData(model.url)],
