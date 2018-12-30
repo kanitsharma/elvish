@@ -18,9 +18,9 @@ The logic of every Elvish program will break up into three cleanly separated par
 
 
 ```javascript
-  import run from "../../src/lib/core";
-  import { f, onClick, onEnter, value, Text } from "../../src/lib/dom-effect";
-  import { Union, Record, Effect } from '../../src/lib/core/types'
+  import run from 'elvish';
+  import { f, onClick, onEnter, value, Text } from "elvish";
+  import { Union, Record } from 'elvish'
 
   const Model = Record({
     counter: Number,
@@ -77,9 +77,9 @@ The logic of every Elvish program will break up into three cleanly separated par
 ## Side Effect example
 
 ```javascript
-  import run from "../../src/lib/core";
-  import { f, onClick, Text } from '../../src/lib/dom-effect'
-  import { Union, Record, Effect } from '../../src/lib/core/types'
+  import run from 'elvish';
+  import { f, onClick, onEnter, value, Text } from "elvish";
+  import { Union, Record } from 'elvish'
 
   const Model = Record({
     userId: Number,
