@@ -1,4 +1,4 @@
-import { dispatch } from '../core'
+import { dispatch } from '../core/index'
 
 export const className = name => ({
   class: name

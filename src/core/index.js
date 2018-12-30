@@ -1,6 +1,6 @@
 import { MulticastSource, never, runEffects, tap, scan, map } from "@most/core";
 import { newDefaultScheduler } from "@most/scheduler";
-import { render } from "../dom-effect";
+import { render } from "../dom-effect/index";
 
 // Application Scheduler
 const scheduler = newDefaultScheduler();

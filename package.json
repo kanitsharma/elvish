@@ -1,10 +1,16 @@
 {
-  "name": "elf",
+  "name": "elvish",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "main": "dist/main.js",
+  "module": "dist/main.js",
   "devDependencies": {
-    "rollup": "^1.0.0"
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "rollup": "^1.0.0",
+    "rollup-plugin-babel": "^4.2.0",
+    "rollup-plugin-node-resolve": "^4.0.0"
   },
   "dependencies": {
     "@most/core": "^1.3.2",
@@ -12,7 +18,7 @@
     "virtual-dom": "^2.1.1"
   },
   "scripts": {
-    "start:basic": "parcel example/basic/index.html",
-    "start:http": "parcel example/http/index.html"
+    "start": "rollup --watch --config --configDebug",
+    "build": "rollup --config --configDebug"
   }
 }
