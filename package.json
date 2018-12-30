@@ -1,7 +1,6 @@
 {
   "name": "elvish",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "1.0.1",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -20,5 +19,17 @@
   "scripts": {
     "start": "rollup --watch --config --configDebug",
     "build": "rollup --config --configDebug"
+  },
+  "author": {
+    "name": "Kanit Sharma",
+    "email": "kanitshrm09@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/kanitsharma/elvish/issues"
+  },
+  "homepage": "https://github.com/kanitsharma/elvish/blob/master/readme.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kanitsharma/elvish"
   }
 }
