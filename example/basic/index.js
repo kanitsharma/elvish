@@ -1,6 +1,6 @@
-import run from "../../src/lib/core";
-import { f, onClick, onEnter, value, Text, h } from "../../src/lib/dom-effect";
-import { Union, Record, Effect } from '../../src/lib/core/types'
+import run from '../../dist/main';
+import { f, onClick, onEnter, value, Text, h } from "../../dist/main";
+import { Union, Record, Effect } from '../../dist/main'
 
 const Model = Record({
   counter: Number,

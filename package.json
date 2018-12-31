@@ -1,6 +1,6 @@
 {
   "name": "elvish",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -9,6 +9,7 @@
     "@babel/preset-env": "^7.2.3",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.2.0",
+    "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0"
   },
   "dependencies": {
@@ -18,7 +19,8 @@
   },
   "scripts": {
     "start": "rollup --watch --config --configDebug",
-    "build": "rollup --config --configDebug"
+    "build": "rollup --config --configDebug",
+    "build:basic": "rollup --config=example/basic/rollup.config.js"
   },
   "author": {
     "name": "Kanit Sharma",

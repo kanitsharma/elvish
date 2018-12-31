@@ -1,16 +1,17 @@
-import { MulticastSource, never, runEffects, tap, scan, map } from "@most/core";
+import { runEffects, tap, scan, map } from "@most/core";
 import { newDefaultScheduler } from "@most/scheduler";
 import { render } from "../dom-effect/index";
+import { createAdapter } from './most-adapter'
 
 // Application Scheduler
 const scheduler = newDefaultScheduler();
 
 // Action Source
-const action$ = new MulticastSource(never());
+const [induceAction, action$] = createAdapter();
 
 // Adding event(time, value) to the action sink
 export const dispatch = action =>
-  action$.event(scheduler.currentTime(), action);
+  induceAction(action);
 
 const apply2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
