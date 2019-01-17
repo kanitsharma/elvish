@@ -5,6 +5,7 @@ import createElement from 'virtual-dom/create-element'
 let tree, rootNode
 
 export default root => newTree => {
+  console.log('Rendered')
   if (!tree) {
     rootNode = createElement(newTree);
     root.appendChild(rootNode);

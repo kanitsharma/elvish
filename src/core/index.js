@@ -10,8 +10,9 @@ const scheduler = newDefaultScheduler();
 const [induceAction, action$] = createAdapter();
 
 // Adding event(time, value) to the action sink
-export const dispatch = action =>
-  induceAction(action);
+export function* dispatch(action) {
+  return action
+}
 
 const apply2 = fn => (arg1, arg2) => fn(arg1)(arg2)
 
