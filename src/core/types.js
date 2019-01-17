@@ -2,17 +2,6 @@ import Type from 'union-type'
 
 export { Type as Union }
 
-const curry = (fn, args = []) => {
-  const length = fn.length
-  if (fn.length === 1) {
-    return fn
-  }
-  if (args.length === length) {
-    return fn(...args)
-  }
-  return x => curry(fn, [...args, x])
-}
-
 export const Record = rec => {
   const X = Type({
     Record: {
