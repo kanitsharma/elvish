@@ -8,8 +8,8 @@ export default {
     format: 'esm'
   },
   plugins: [
-    babel({
-      exclude: 'node_modules/**'
-    })
+    // babel({
+    //   exclude: 'node_modules/**'
+    // })
   ]
 };
