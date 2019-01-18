@@ -9,7 +9,10 @@ export const Record = rec => {
     }
   })
 
-  return (...params) => X.RecordOf(Object.keys(rec).reduce((acc, x, i) => ({ ...acc, [x]: params[i] }), {}))
+  return {
+    create: (...params) => X.RecordOf(Object.keys(rec).reduce((acc, x, i) => ({ ...acc, [x]: params[i] }), {})),
+    ...X
+  }
 }
 
 export const Effect = sideEffect => _ => new Promise((resolve, reject) => sideEffect(resolve, reject))
