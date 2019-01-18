@@ -16,13 +16,13 @@ const Msg = Union({
   UpdateText: [String]
 });
 
-// update :: Msg -> Model -> (Msg -> Model)
-const Update = msg => model => msg.case({
+// update :: Model -> Msg -> Model
+const Update = model => Msg.case({
   Increment: () => ({ ...model, counter: model.counter + 1 }),
   Decrement: () => ({ ...model, counter: model.counter - 1 }),
   UpdateText: text => ({ ...model, text }),
   _: () => model
-})
+}) // msg will be partially applied here
 
 // view :: Model -> Html Msg
 const View = ({ counter, text }) =>
@@ -48,7 +48,6 @@ const Root = document.getElementById("root");
 run({
   View,
   Update,
-  Msg,
   Init,
   Root
 });

@@ -13,24 +13,22 @@ const manageSideEffects = nextState =>
     ? performSideEffects(nextState[1]) || nextState[0]
     : nextState
 
-export default ({ View, Init, Msg, Root, Update }) => {
-  const foldState = prevState => action => {
-    if (!action) {
-      return prevState
-    }
-    return manageSideEffects(Update(Msg)(prevState)(action))
-  }
+export default ({ View, Init, Root, Update }) => {
+  const foldState = prevState => action =>
+    !action
+      ? prevState
+      : manageSideEffects(Update(prevState)(action))
 
   const mapStateToView = state => View(state)
 
-  const run = prevState => action => {
+  const runEffects = prevState => action => {
     const nextState = foldState(prevState)(action)
     const vTree = mapStateToView(nextState)
     render(Root)(vTree)
-    nextFn(run(nextState))
+    nextFn(runEffects(nextState))
   }
 
-  run(Init)()
+  runEffects(Init)()
 };
 
 export { dispatch, render }
