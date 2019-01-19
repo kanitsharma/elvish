@@ -8,7 +8,7 @@ const Model = Record({
 })
 
 // init :: Model
-const Init = Model(0, 'Hello')
+const Init = Model.create(0, 'Hello')
 
 const Msg = Union({
   Increment: [],

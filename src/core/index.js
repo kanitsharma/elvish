@@ -4,7 +4,7 @@ import { scheduler } from './scheduler'
 const { nextFn, dispatch } = scheduler()
 
 const performSideEffects = effect => {
-  effect().then(dispatch).catch(dispatch)
+  effect().fork(dispatch, dispatch)
   return false
 }
 

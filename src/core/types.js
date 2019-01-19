@@ -1,6 +1,13 @@
 import Type from 'union-type'
 
+// Union
+
+Type.map = f => x => f(x)
+
 export { Type as Union }
+
+
+// Record
 
 export const Record = rec => {
   const X = Type({
@@ -15,4 +22,23 @@ export const Record = rec => {
   }
 }
 
-export const Effect = sideEffect => _ => new Promise((resolve, reject) => sideEffect(resolve, reject))
+// Effect
+
+const empty = _ => Effect(_ => { })
+
+export const Effect = (F, cleanup = () => { }) => {
+  const map = f => Effect((reject, resolve) => F(x => reject(x), y => resolve(f(y))), cleanup)
+  const chain = f => Effect((reject, resolve) => F(x => reject(x), y => f(y).fork(reject, resolve)), cleanup)
+  const orElse = f => Effect((reject, resolve) => F(x => f(x).fork(reject, resolve), y => resolve(y)), cleanup)
+  const fold = (f, g) => Effect((_, resolve) => F(x => resolve(f(x)), y => resolve(g(y))), cleanup)
+  const cata = pattern => fold(pattern.Rejected, pattern.Resolved)
+  const bimap = (f, g) => Effect((reject, resolve) => F(x => reject(f(x)), y => resolve(g(y))), cleanup)
+  const fork = F
+
+  return { map, chain, empty, orElse, fold, cata, bimap, fork }
+}
+
+Effect.of = x => Effect((_, resolve) => resolve(x))
+Effect.rejected = x => Effect(reject => reject(x))
+Effect.empty = empty
+Effect.toString = () => 'Effect'

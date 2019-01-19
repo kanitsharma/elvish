@@ -18,8 +18,8 @@ const Update = model => Msg.case({
 })
 
 // view :: Model -> Html Msg
-const View = (text, updateText) => (
-  f("input", [onEnter(e => updateText(Msg.UpdateText(e.target.value))), value(text)], [])
+const View = (text, TextboxMsg) => (
+  f("input", [onEnter(e => Union.map(TextboxMsg)(Msg.UpdateText(e.target.value))), value(text)], [])
 )
 
 export {
