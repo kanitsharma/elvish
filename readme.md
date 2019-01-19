@@ -3,11 +3,6 @@
 
 Elvish is heavily inspired from elm-architecture, it is an effort to implement the type safe and functional architecture that elm provides in a non typed language like javascript.
 
-Built with
- - [@most/core](https://github.com/mostjs/core)
- - [virtual-dom](https://github.com/Matt-Esch/virtual-dom)
- - [union-type](https://github.com/paldepind/union-type)
-
 ## Basic Example
 
 The logic of every Elvish program will break up into three cleanly separated parts:
@@ -16,129 +11,118 @@ The logic of every Elvish program will break up into three cleanly separated par
 - Update — a way to update your state
 - View — a way to view your state as HTML
 
-
 ```javascript
-  import run from 'elvish';
-  import { f, onClick, onEnter, value, Text } from "elvish";
-  import { Union, Record } from 'elvish'
+import run from '../../dist/main';
+import { f, onClick, Text } from "../../dist/main";
+import { Union, Record } from '../../dist/main'
 
-  const Model = Record({
-    counter: Number,
-    text: String
-  })
+const Model = Record({
+  counter: Number
+})
 
-  // init :: Model
-  const Init = Model(0, 'Hello')
+// init :: Model
+const Init = Model.create(0)
 
-  const Msg = Union({
-    Increment: [],
-    Decrement: [],
-    UpdateText: [String]
-  });
+// Msg = Increment | Decrement
+const Msg = Union({
+  Increment: [],
+  Decrement: []
+});
 
-  // update :: Msg -> Model -> (Msg -> Model)
-  const Update = msg => model => msg.case({
-    Increment: () => ({ ...model, counter: model.counter + 1 }),
-    Decrement: () => ({ ...model, counter: model.counter - 1 }),
-    UpdateText: text => ({ ...model, text }),
-    _: () => model
-  })
+// update :: Model -> Msg -> Model
+const Update = model => Msg.case({
+  Increment: () => ({ ...model, counter: model.counter + 1 }),
+  Decrement: () => ({ ...model, counter: model.counter - 1 }),
+  _: () => model
+})
 
-  // view :: Model -> Html Msg
-  const View = ({ counter, text }) =>
-    f(
-      "div",
-      [],
-      [
-        f("button", [onClick(Msg.Increment)], ["+"]),
-        f("span", [], [Text(counter)]),
-        f("button", [onClick(Msg.Decrement)], ["-"]),
-        TextBox(text, Msg.UpdateText),
-        f("h1", [], [Text(text)])
-      ]
-    );
+// view :: Model -> Html Msg
+const View = ({ counter, text }) =>
+  f("div", [], [
+    f("button", [onClick(Msg.Increment)], ["+"]),
+    f("span", [], [Text(counter)]),
+    f("button", [onClick(Msg.Decrement)], ["-"]),
+  ]
+  );
 
-  const TextBox = (text, updateText) => (
-    f("input", [onEnter(e => updateText(e.target.value)), value(text)], [])
-  )
+// Run
+const Root = document.getElementById("root");
 
-  // Run
-  const Root = document.getElementById("root");
-
-  run({
-    View,
-    Update,
-    Msg,
-    Init,
-    Root
-  });
+run({
+  View,
+  Update,
+  Init,
+  Root
+});
 ```
 
 ## Side Effect example
 
 ```javascript
-  import run from 'elvish';
-  import { f, onClick, onEnter, value, Text } from "elvish";
-  import { Union, Record } from 'elvish'
+import run from "../../dist/main";
+import { f, onClick, Text } from '../../dist/main'
+import { Union, Record, Effect } from '../../dist/main'
 
-  const Model = Record({
-    userId: Number,
-    title: String,
-    fetched: Boolean,
-    url: String
-  })
+const Model = Record({
+  userId: Number,
+  title: String,
+  fetched: Boolean,
+  url: String
+})
 
-  // init :: Model
-  const Init = Model(0, '', false, 'https://jsonplaceholder.typicode.com/todos/1')
+// init :: Model
+const Init = Model.create(0, '', false, 'https://jsonplaceholder.typicode.com/todos/1')
 
-  const Msg = Union({
-    FetchData: [],
-    FetchedData: [Number, String],
-    FetchError: []
-  });
+// Msg :: FetchData | FetchedData ( Number, String) | FetchError String
+const Msg = Union({
+  FetchData: [],
+  FetchedData: [Number, String],
+  FetchError: [String]
+});
 
-  // fetchUserData :: String -> Effect FetchedData
-  const fetchUserData = url => Effect((resolve, reject) => {
-    fetch(url)
-      .then(res => res.json())
-      .then(({ userId, title }) => Msg.FetchedData(userId, title))
-      .then(resolve)
-      .catch(err => reject(Msg.FetchError))
-  })
+// getJson :: String -> Effect err { number, string }
+const getJson = url => Effect((reject, resolve) =>
+  fetch(url)
+    .then(x => !x.ok ? reject('Error') : x.json())
+    .then(resolve)
+)
 
-  // update :: Msg -> Model -> (Msg -> Model)
-  const Update = msg => model => msg.case({
-    FetchData: () => [model, fetchUserData(model.url)],
-    FetchedData: (userId, title) => ({ ...model, userId, title, fetched: true }),
-    FetchError: () => ({ ...model, title: 'Error fetching', fetched: true }),
-    _: _ => model
-  })
+// fetchUserData :: String -> Effect FetchError FetchedData
+const fetchUserData = url =>
+  Effect.of(url)
+    .chain(getJson)
+    .bimap(err => Msg.FetchError(err), ({ userId, title }) => Msg.FetchedData(userId, title))
 
-  // view :: Model -> Html Msg
-  const View = ({ userId, title, fetched }) =>
-    f(
-      'div',
-      [],
-      [
-        f('button', [onClick(Msg.FetchData)], [Text('Fetch Data')]),
-        fetched && f('div', [], [
-          f('h3', [], [Text(userId)]),
-          f('h3', [], [Text(title)])
-        ])
-      ]
-    );
+// update :: Model -> Msg -> Model | (Model, Effect)
+const Update = model => Msg.case({
+  FetchData: () => [model, fetchUserData(model.url)],
+  FetchedData: (userId, title) => ({ ...model, userId, title, fetched: true }),
+  FetchError: err => ({ ...model, title: err, fetched: true }),
+  _: _ => model
+})
+
+// view :: Model -> Html Msg
+const View = ({ userId, title, fetched }) =>
+  f('div', [],
+    [
+      f('button', [onClick(Msg.FetchData)], [Text('Fetch Data')]),
+      fetched && f('div', [], [
+        f('h3', [], [Text(userId)]),
+        f('h3', [], [Text(title)])
+      ])
+    ]
+  );
 
 
-  // Run
-  const Root = document.getElementById("root");
+// Run
+const Root = document.getElementById("root");
 
-  run({
-    View,
-    Update,
-    Msg,
-    Init,
-    Root
-  });
+run({
+  View,
+  Update,
+  Init,
+  Root
+});
 ```
 
 ## Types
@@ -152,7 +136,7 @@ The logic of every Elvish program will break up into three cleanly separated par
     text: String
   }) // Returns a type constructor Model(counter, text)
 
-  const model = Model(0, 'hello world') // create new Model
+  const model = Model.create(0, 'hello world') // create new Model
 
   console.log(model.counter) // 0
   console.log(model.text) // hello world
@@ -165,7 +149,7 @@ The logic of every Elvish program will break up into three cleanly separated par
     counter: Number
   })
 
-  const model = Model('0') // wrong type passed to record
+  const model = Model.create('0') // wrong type passed to record
 ```
 
 ### Union Type
@@ -191,7 +175,7 @@ Union types are an important part of an elvish application.
     Nothing: []
   })
   
-  Maybe.prototype.map = function(fn) {
+  Maybe.map = function(fn) {
     return Maybe.case({
       Nothing: () => Maybe.Nothing,
       Just: (v) => Maybe.Just(fn(v))
@@ -227,23 +211,65 @@ Union types are an important part of an elvish application.
 
 ### Effect type
 
-Effect types are used to run side effects in an elvish application. Effects can be thought of as a lazy promise, basically the idea is to abstract the side effects from your pure code and running them separately, so your code stays pure even when you are doing side effects.
+Effect types are used to run side effects in an elvish application. Effects is a structure for time-dependent values.
+
+Basically the idea is to abstract the side effects from your pure code and running them separately, so your code stays pure even when you are doing side effects.
 
 You can think of an elvish application as pure and functional code running in an imperative shell.
 
 - Example
 
 ```javascript
-  const fetchUserData = url => Effect((resolve, reject) => {
-    fetch(url)
-      .then(res => res.json())
-      .then(({ userId, title }) => Msg.FetchedData(userId, title))
-      .then(resolve)
-      .catch(err => reject(Msg.FetchError))
-  })
+  const executeEffect = number =>
+    Effect.of(number)
+      .map(x => x + 10)
 ```
 Only way to run Effects in an elvish application is to return a tuple from the update function containing [ Model, Effect ].
 
 ```javascript
-  FetchData: () => [model, fetchUserData(model.url)],
+  ExecuteEffect: () => [model, executeEffect(model.number)],
+```
+
+#### Instances
+
+```javascript
+
+  // Constructing
+  Effect.of(value)
+  //  b -> Effect(a, b)
+  // Constructs a new Effect containing the given successful value.
+
+  Effect.rejected(value)
+  // a -> Effect(a, b)
+  // Constructs a new Effect containing the given failure value.
+
+  Effect.empty()
+  // () -> Effect(a, b)
+  // Constructs a Effect that will never resolve.
+
+  // Transforming
+  Effect.map(transformation)
+  // Effect(a, b) => (b -> c) -> Effect(a, c)
+  // Transforms the successful value of the Effect using a regular unary function.
+
+  Effect.chain(transformation)
+  // Effect(a, b) => (b -> Effect(a, c)) -> Effect(a, c)
+  // Transforms the succesful value of the Effect using a function over monads.
+
+  Effect.orElse(transformation)
+  // Effect(a, b) => (a -> Effect(c, b)) -> Effect(c, b)
+  // Transforms the failure value of the Effect into a new Effect.
+
+  Effect.fold(onRejection, onSucecss)
+  // Effect(a, b) => (a -> c), (b -> c) -> Effect(d, c)
+  // Applies a function to each side of the Effect.
+
+  Effect.cata(pattern)
+  // Effect(a, b) => { Rejected: a -> c, Resolved: b -> c } → Effect(d, c)
+  // Applies a function to each side of the Effect.
+
+  Effect.bimap(onRejection, onSuccess)
+  // Effect(a, b) => (a -> c), (b -> d) -> Effect(c, d)
+  // Maps both sides of the Effect.
+
 ```
