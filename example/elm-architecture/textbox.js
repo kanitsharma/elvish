@@ -1,5 +1,5 @@
-import { f, onClick, onEnter, value, Text, h } from "../../dist/main";
-import { Union, Record, Effect } from '../../dist/main'
+import { f, onEnter, value } from "../../dist/main";
+import { Union, Record } from '../../dist/main'
 
 const Model = Record({
   text: String
