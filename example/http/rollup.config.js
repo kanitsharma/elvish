@@ -4,10 +4,10 @@ import commonJS from 'rollup-plugin-commonjs'
 import { uglify } from "rollup-plugin-uglify";
 
 export default {
-  input: 'example/elm-architecture/index.js',
+  input: 'example/http/index.js',
   output: {
     name: 'main',
-    file: 'example/elm-architecture/dist/main.js',
+    file: 'example/http/dist/main.js',
     format: 'iife'
   },
   plugins: [
@@ -21,6 +21,6 @@ export default {
     babel({
       exclude: 'node_modules/**'
     }),
-    uglify()
+    // uglify()
   ]
 };

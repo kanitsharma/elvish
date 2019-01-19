@@ -21,7 +21,8 @@
     "start": "rollup --watch --config --configDebug",
     "build": "rollup --config --configDebug",
     "build:basic": "rollup --config=example/basic/rollup.config.js",
-    "build:ea": "rollup --config=example/elm-architecture/rollup.config.js"
+    "build:ea": "rollup --config=example/elm-architecture/rollup.config.js",
+    "build:http": "rollup --config=example/http/rollup.config.js"
   },
   "author": {
     "name": "Kanit Sharma",
