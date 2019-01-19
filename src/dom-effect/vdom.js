@@ -2,7 +2,8 @@ import h from 'virtual-dom/h'
 
 const reduceProps = props => props.reduce((acc, x) => ({ ...acc, ...x }), {});
 
-export { h as h }
+const x = (x, y, ...z) => h(x, y, z)
+export { x as h }
 export const f = (type, propList, children) => h(
   type,
   reduceProps(propList),

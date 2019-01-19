@@ -1,11 +1,12 @@
 {
   "name": "elvish",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-transform-react-jsx": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.2.0",
@@ -22,7 +23,8 @@
     "build": "rollup --config --configDebug",
     "build:basic": "rollup --config=example/basic/rollup.config.js",
     "build:ea": "rollup --config=example/elm-architecture/rollup.config.js",
-    "build:http": "rollup --config=example/http/rollup.config.js"
+    "build:http": "rollup --config=example/http/rollup.config.js",
+    "publish": "npm run build && npm publish"
   },
   "author": {
     "name": "Kanit Sharma",

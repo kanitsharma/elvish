@@ -1,5 +1,5 @@
 import run from '../../dist/main';
-import { f, onClick, Text } from "../../dist/main";
+import { h, onClick, Text } from "../../dist/main";
 import { Union, Record } from '../../dist/main'
 
 const Model = Record({
@@ -24,12 +24,11 @@ const Update = model => Msg.case({
 
 // view :: Model -> Html Msg
 const View = ({ counter, text }) =>
-  f("div", [], [
-    f("button", [onClick(Msg.Increment)], ["+"]),
-    f("span", [], [Text(counter)]),
-    f("button", [onClick(Msg.Decrement)], ["-"]),
-  ]
-  );
+  <div>
+    <button {...onClick(Msg.Increment)} >+</button>
+    <span>{Text(counter)}</span>
+    <button {...onClick(Msg.Decrement)} >-</button>
+  </div>
 
 // Run
 const Root = document.getElementById("root");

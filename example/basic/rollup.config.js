@@ -19,7 +19,10 @@ export default {
       include: 'node_modules/**'
     }),
     babel({
-      exclude: 'node_modules/**'
+      exclude: 'node_modules/**',
+      plugins: [
+        ["@babel/plugin-transform-react-jsx", {"pragma": "h"}]
+      ],
     }),
     uglify()
   ]
