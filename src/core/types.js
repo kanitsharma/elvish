@@ -1,9 +1,6 @@
-import Type from 'union-type'
+import { Type } from './union'
 
 // Union
-
-Type.map = f => x => f(x)
-
 export { Type as Union }
 
 
