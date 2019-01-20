@@ -1,5 +1,4 @@
-import h from 'virtual-dom/h'
-
+import { h } from 'inferno-hyperscript'
 const reduceProps = props => props.reduce((acc, x) => ({ ...acc, ...x }), {});
 
 const x = (x, y, ...z) => h(x, y, z)
