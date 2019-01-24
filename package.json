@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "inferno": "^7.0.5",
-    "inferno-hyperscript": "^7.0.5"
+    "inferno-hyperscript": "^7.0.5",
+    "ramda": "^0.26.1"
   },
   "scripts": {
     "start": "rollup --watch --config --configDebug",
