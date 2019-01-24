@@ -23,7 +23,7 @@ const Update = model => Msg.case({
 })
 
 // view :: Model -> Html Msg
-const View = ({ counter, text }) =>
+const View = ({ counter }) =>
   div([], [
     button([ onClick(Msg.Increment) ], ["+"]),
     span([], [ Text(counter) ]),

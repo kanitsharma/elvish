@@ -18,9 +18,9 @@ The logic of every Elvish program will break up into three cleanly separated par
 - View — a way to view your state as HTML
 
 ```javascript
-import run from '../../dist/main';
-import { f, onClick, Text } from "../../dist/main";
-import { Union, Record } from '../../dist/main'
+import run from 'elvish';
+import { onClick, Text, div, button, span } from "elvish";
+import { Union, Record } from 'elvish'
 
 const Model = Record({
   counter: Number
@@ -43,13 +43,12 @@ const Update = model => Msg.case({
 })
 
 // view :: Model -> Html Msg
-const View = ({ counter, text }) =>
-  f("div", [], [
-    f("button", [onClick(Msg.Increment)], ["+"]),
-    f("span", [], [Text(counter)]),
-    f("button", [onClick(Msg.Decrement)], ["-"]),
-  ]
-  );
+const View = ({ counter }) =>
+  div([], [
+    button([ onClick(Msg.Increment) ], ["+"]),
+    span([], [ Text(counter) ]),
+    button([ onClick(Msg.Decrement) ], ["-"])
+  ])
 
 // Run
 const Root = document.getElementById("root");
