@@ -1,6 +1,6 @@
 {
   "name": "elvish",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -27,7 +27,7 @@
     "build:basic": "rollup --config=example/basic/rollup.config.js",
     "build:ea": "rollup --config=example/elm-architecture/rollup.config.js",
     "build:http": "rollup --config=example/http/rollup.config.js",
-    "publish": "npm run build && npm publish"
+    "publish": "npm publish"
   },
   "author": {
     "name": "Kanit Sharma",
