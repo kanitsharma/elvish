@@ -19,7 +19,7 @@
   "dependencies": {
     "inferno": "^7.0.5",
     "inferno-hyperscript": "^7.0.5",
-    "union-type": "^0.4.1"
+    "ramda": "^0.26.1"
   },
   "scripts": {
     "start": "rollup --watch --config --configDebug",
