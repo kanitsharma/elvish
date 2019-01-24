@@ -3,6 +3,12 @@
 
 Elvish is heavily inspired from elm-architecture, it is an effort to implement the type safe and functional architecture that elm provides in a non typed language like javascript.
 
+Elvish uses [Inferno](https://github.com/infernojs/inferno) as its Vdom which makes it insanely fast, even faster than React and Elm itself.
+
+Here is the jS-benchmark
+
+<img src="docs/benchmark.png" height="500" width="350" />
+
 ## Basic Example
 
 The logic of every Elvish program will break up into three cleanly separated parts:
