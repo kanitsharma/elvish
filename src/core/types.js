@@ -1,4 +1,5 @@
 import { Type } from './union'
+import curryN from 'ramda/es/curryN'
 
 // Union
 export { Type as Union }
@@ -14,7 +15,7 @@ export const Record = rec => {
   })
 
   return {
-    create: (...params) => X.RecordOf(Object.keys(rec).reduce((acc, x, i) => ({ ...acc, [x]: params[i] }), {})),
+    create: curryN(Object.keys(rec).length, (...params) => X.RecordOf(Object.keys(rec).reduce((acc, x, i) => ({ ...acc, [x]: params[i] }), {}))),
     ...X
   }
 }

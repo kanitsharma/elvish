@@ -9,7 +9,7 @@ const Model = Record({
 });
 
 // init :: Model
-const Init = Model.create(0, TextBox.Init);
+const Init = Model.create(0)(TextBox.Init);
 
 const Msg = Union({
   Increment: [],
