@@ -1,13 +1,13 @@
 export const scheduler = () => {
-  let subscriber
+  let subscriber;
 
-  const dispatch = (action) => {
-    subscriber(action)
-  }
+  const dispatch = action => {
+    subscriber(action);
+  };
 
-  const nextFn = (fn) => {
-    subscriber = fn
-  }
+  const nextFn = fn => {
+    subscriber = fn;
+  };
 
-  return { dispatch, nextFn }
-}
+  return { dispatch, nextFn };
+};

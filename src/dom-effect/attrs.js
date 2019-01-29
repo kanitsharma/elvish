@@ -1,4 +1,4 @@
-import { dispatch } from '../core/index'
+import { dispatch } from "../core/index";
 
 export const className = name => ({
   class: name
@@ -14,14 +14,14 @@ export const onClick = Msg => ({
 
 export const onEnter = Msg => ({
   oninput: e => dispatch(Msg(e))
-})
+});
 
 export const src = src => ({
   src
-})
+});
 
 export const value = value => ({
   value
-})
+});
 
-export const Text = value => String(value)
+export const Text = value => String(value);

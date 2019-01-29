@@ -1,13 +1,13 @@
-import run from '../../dist/main';
+import run from "../../dist/main";
 import { onClick, Text, div, button, span } from "../../dist/main";
-import { Union, Record } from '../../dist/main'
+import { Union, Record } from "../../dist/main";
 
 const Model = Record({
   counter: Number
-})
+});
 
 // init :: Model
-const Init = Model.create(0)
+const Init = Model.create(0);
 
 // Msg = Increment | Decrement
 const Msg = Union({
@@ -16,19 +16,23 @@ const Msg = Union({
 });
 
 // update :: Model -> Msg -> Model
-const Update = model => Msg.case({
-  Increment: () => ({ ...model, counter: model.counter + 1 }),
-  Decrement: () => ({ ...model, counter: model.counter - 1 }),
-  _: () => model
-})
+const Update = model =>
+  Msg.case({
+    Increment: () => ({ ...model, counter: model.counter + 1 }),
+    Decrement: () => ({ ...model, counter: model.counter - 1 }),
+    _: () => model
+  });
 
 // view :: Model -> Html Msg
 const View = ({ counter }) =>
-  div([], [
-    button([ onClick(Msg.Increment) ], ["+"]),
-    span([], [ Text(counter) ]),
-    button([ onClick(Msg.Decrement) ], ["-"])
-  ])
+  div(
+    [],
+    [
+      button([onClick(Msg.Increment)], ["+"]),
+      span([], [Text(counter)]),
+      button([onClick(Msg.Decrement)], ["-"])
+    ]
+  );
 
 // Run
 const Root = document.getElementById("root");
