@@ -64,9 +64,9 @@ run({
 ## Side Effect example
 
 ```javascript
-import run from "../../dist/main";
-import { f, onClick, Text } from '../../dist/main'
-import { Union, Record, Effect } from '../../dist/main'
+import run from "elvish";
+import { div, button, h3, onClick, Text } from 'elvish'
+import { Union, Record, Effect } from 'elvish'
 
 const Model = Record({
   userId: Number,
@@ -76,9 +76,9 @@ const Model = Record({
 })
 
 // init :: Model
-const Init = Model.create(0, '', false, 'https://jsonplaceholder.typicode.com/todos/1')
+const Init = Model.create(0)('')(false)('https://jsonplaceholder.typicode.com/todos/1')
 
-// Msg :: FetchData | FetchedData ( Number, String) | FetchError String
+// Msg :: FetchData | FetchedData | FetchError
 const Msg = Union({
   FetchData: [],
   FetchedData: [Number, String],
@@ -108,12 +108,12 @@ const Update = model => Msg.case({
 
 // view :: Model -> Html Msg
 const View = ({ userId, title, fetched }) =>
-  f('div', [],
+  div([],
     [
-      f('button', [onClick(Msg.FetchData)], [Text('Fetch Data')]),
-      fetched && f('div', [], [
-        f('h3', [], [Text(userId)]),
-        f('h3', [], [Text(title)])
+      button([onClick(Msg.FetchData)], [Text('Fetch Data')]),
+      fetched && div([], [
+        h3([], [Text(userId)]),
+        h3([], [Text(title)])
       ])
     ]
   );
