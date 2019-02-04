@@ -65,6 +65,8 @@ run({
 
 ## Side Effect example
 
+Here is a [Code Sandbox](https://codesandbox.io/s/309960pr2p)
+
 ```javascript
 import run from "elvish";
 import { div, button, h3, onClick, Text } from 'elvish'
