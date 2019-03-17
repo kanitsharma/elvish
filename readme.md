@@ -1,4 +1,5 @@
-# Elvish
+<img src='logo.png' />
+
  A functional, reactive and some what type safe javascript library to build UIs 
 
 Elvish is heavily inspired from elm-architecture, it is an effort to implement the type safe and functional architecture that elm provides in a non typed language like javascript.
