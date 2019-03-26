@@ -1,17 +1,18 @@
-import curryN from "ramda/src/curryN";
+/* eslint-disable */
+import curryN from 'ramda/src/curryN';
 
-const isString = s => typeof s === "string";
-const isNumber = n => typeof n === "number";
-const isBoolean = b => typeof b === "boolean";
+const isString = s => typeof s === 'string';
+const isNumber = n => typeof n === 'number';
+const isBoolean = b => typeof b === 'boolean';
 const isObject = value => {
   var type = typeof value;
-  return !!value && (type == "object" || type == "function");
+  return !!value && (type == 'object' || type == 'function');
 };
-const isFunction = f => typeof f === "function";
+const isFunction = f => typeof f === 'function';
 const isArray =
   Array.isArray ||
   function(a) {
-    return "length" in a;
+    return 'length' in a;
   };
 
 const mapConstrToFn = (group, constr) => {
@@ -33,29 +34,29 @@ const mapConstrToFn = (group, constr) => {
 };
 
 const numToStr = [
-  "first",
-  "second",
-  "third",
-  "fourth",
-  "fifth",
-  "sixth",
-  "seventh",
-  "eighth",
-  "ninth",
-  "tenth"
+  'first',
+  'second',
+  'third',
+  'fourth',
+  'fifth',
+  'sixth',
+  'seventh',
+  'eighth',
+  'ninth',
+  'tenth',
 ];
 
 var validate = function(group, validators, name, args) {
   var validator, v, i;
   if (args.length > validators.length) {
     throw new TypeError(
-      "too many arguments supplied to constructor " +
+      'too many arguments supplied to constructor ' +
         name +
-        " (expected " +
+        ' (expected ' +
         validators.length +
-        " but got " +
+        ' but got ' +
         args.length +
-        ")"
+        ')',
     );
   }
   for (i = 0; i < args.length; ++i) {
@@ -65,16 +66,16 @@ var validate = function(group, validators, name, args) {
       Type.check === true &&
       (validator.prototype === undefined ||
         !validator.prototype.isPrototypeOf(v)) &&
-      (typeof validator !== "function" || !validator(v))
+      (typeof validator !== 'function' || !validator(v))
     ) {
-      var strVal = typeof v === "string" ? "'" + v + "'" : v; // put the value in quotes if it's a string
+      var strVal = typeof v === 'string' ? "'" + v + "'" : v; // put the value in quotes if it's a string
       throw new TypeError(
-        "wrong value " +
+        'wrong value ' +
           strVal +
-          " passed as " +
+          ' passed as ' +
           numToStr[i] +
-          " argument to constructor " +
-          name
+          ' argument to constructor ' +
+          name,
       );
     }
   }
@@ -122,11 +123,11 @@ function constructor(group, name, fields) {
     keys.length === 0 ? construct() : curryN(keys.length, construct);
 
   if (keys.length !== 0) {
-    group[name]["map"] = curryN(keys.length, construct);
+    group[name]['map'] = curryN(keys.length, construct);
   }
 
   if (keys !== undefined) {
-    group[name + "Of"] = function(obj) {
+    group[name + 'Of'] = function(obj) {
       return construct.apply(undefined, extractValues(keys, obj));
     };
   }
@@ -136,14 +137,14 @@ function rawCase(type, cases, value, arg) {
   var wildcard = false;
   var handler = cases[value._name];
   if (handler === undefined) {
-    handler = cases["_"];
+    handler = cases['_'];
     wildcard = true;
   }
   if (Type.check === true) {
     if (!type.prototype.isPrototypeOf(value)) {
-      throw new TypeError("wrong type passed to case");
+      throw new TypeError('wrong type passed to case');
     } else if (handler === undefined) {
-      throw new Error("non-exhaustive patterns in a function");
+      throw new Error('non-exhaustive patterns in a function');
     }
   }
   if (handler !== undefined) {
@@ -169,7 +170,7 @@ function createIterator() {
       return this.idx === keys.length
         ? { done: true }
         : { value: this.val[keys[this.idx++]] };
-    }
+    },
   };
 }
 
@@ -181,7 +182,7 @@ function Type(desc) {
   obj.caseOn = caseOn(obj);
 
   obj.prototype = {};
-  obj.prototype[Symbol ? Symbol.iterator : "@@iterator"] = createIterator;
+  obj.prototype[Symbol ? Symbol.iterator : '@@iterator'] = createIterator;
   obj.prototype.case = function(cases) {
     return obj.case(cases, this);
   };

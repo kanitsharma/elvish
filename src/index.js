@@ -1,5 +1,5 @@
-export { default, render, dispatch } from "./core/index";
-export { Union, Record, Effect } from "./core/types";
+export { default, render, dispatch } from './core/index';
+export { Union, Record, Effect } from './core/types';
 export {
   className,
   onClick,
@@ -8,8 +8,8 @@ export {
   value,
   Text,
   h,
-  f
-} from "./dom-effect/index";
+  f,
+} from './dom-effect/index';
 export {
   div,
   button,
@@ -27,5 +27,5 @@ export {
   ul,
   ol,
   li,
-  span
-} from "./dom-effect/index";
+  span,
+} from './dom-effect/index';

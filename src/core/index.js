@@ -1,5 +1,5 @@
-import { render } from "../dom-effect/index";
-import { scheduler } from "./scheduler";
+import { render } from '../dom-effect/index';
+import scheduler from './scheduler';
 
 const { nextFn, dispatch } = scheduler();
 

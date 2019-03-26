@@ -1,27 +1,27 @@
-import { dispatch } from "../core/index";
+import { dispatch } from '../core/index';
 
 export const className = name => ({
-  class: name
+  class: name,
 });
 
 export const id = name => ({
-  id: name
+  id: name,
 });
 
 export const onClick = Msg => ({
-  onclick: _ => dispatch(Msg)
+  onclick: _ => dispatch(Msg),
 });
 
 export const onEnter = Msg => ({
-  oninput: e => dispatch(Msg(e))
+  oninput: e => dispatch(Msg(e)),
 });
 
-export const src = src => ({
-  src
+export const src = source => ({
+  src: source,
 });
 
-export const value = value => ({
-  value
+export const value = val => ({
+  value: val,
 });
 
-export const Text = value => String(value);
+export const Text = val => String(val);

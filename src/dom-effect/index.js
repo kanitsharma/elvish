@@ -1,4 +1,4 @@
-export { h, f } from "./vdom";
+export { h, f } from './vdom';
 export {
   div,
   button,
@@ -16,7 +16,7 @@ export {
   ul,
   ol,
   li,
-  span
-} from "./vdom";
-export { className, onClick, id, onEnter, value, Text } from "./attrs";
-export { default as render } from "./render";
+  span,
+} from './vdom';
+export { className, onClick, id, onEnter, value, Text } from './attrs';
+export { default as render } from './render';
