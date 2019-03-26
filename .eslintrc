@@ -1,0 +1,7 @@
+{
+  "extends": "@hellpack/eslint-config-hellpack",
+  "plugins": [
+    "eslint-plugin-prettier",
+    "eslint-plugin-import"
+  ]
+}
