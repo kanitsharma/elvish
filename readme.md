@@ -1,15 +1,10 @@
-# Elvish
+<img src='logo.png' />
+
  A functional, reactive and some what type safe javascript library to build UIs 
 
 Elvish is heavily inspired from elm-architecture, it is an effort to implement the type safe and functional architecture that elm provides in a non typed language like javascript.
 
-Elvish uses [Inferno](https://github.com/infernojs/inferno) as its Vdom which makes it insanely fast, even faster than React and Elm itself.
-
-Here is the jS-benchmark
-
-<img src="docs/benchmark.png" height="500" width="350" />
-
-## Basic Example
+## Getting Started
 
 The logic of every Elvish program will break up into three cleanly separated parts:
 
@@ -17,10 +12,14 @@ The logic of every Elvish program will break up into three cleanly separated par
 - Update — a way to update your state
 - View — a way to view your state as HTML
 
+### Counter Example
+
+Here is a [Code Sandbox](https://codesandbox.io/s/km6jzkwk0r)
+
 ```javascript
-import run from '../../dist/main';
-import { f, onClick, Text } from "../../dist/main";
-import { Union, Record } from '../../dist/main'
+import run from 'elvish';
+import { onClick, Text, div, button, span } from "elvish";
+import { Union, Record } from 'elvish'
 
 const Model = Record({
   counter: Number
@@ -43,13 +42,12 @@ const Update = model => Msg.case({
 })
 
 // view :: Model -> Html Msg
-const View = ({ counter, text }) =>
-  f("div", [], [
-    f("button", [onClick(Msg.Increment)], ["+"]),
-    f("span", [], [Text(counter)]),
-    f("button", [onClick(Msg.Decrement)], ["-"]),
-  ]
-  );
+const View = ({ counter }) =>
+  div([], [
+    button([ onClick(Msg.Increment) ], ["+"]),
+    span([], [ Text(counter) ]),
+    button([ onClick(Msg.Decrement) ], ["-"])
+  ])
 
 // Run
 const Root = document.getElementById("root");
@@ -62,12 +60,14 @@ run({
 });
 ```
 
-## Side Effect example
+### Side Effect example
+
+Here is a [Code Sandbox](https://codesandbox.io/s/309960pr2p)
 
 ```javascript
-import run from "../../dist/main";
-import { f, onClick, Text } from '../../dist/main'
-import { Union, Record, Effect } from '../../dist/main'
+import run from "elvish";
+import { div, button, h3, onClick, Text } from 'elvish'
+import { Union, Record, Effect } from 'elvish'
 
 const Model = Record({
   userId: Number,
@@ -77,9 +77,9 @@ const Model = Record({
 })
 
 // init :: Model
-const Init = Model.create(0, '', false, 'https://jsonplaceholder.typicode.com/todos/1')
+const Init = Model.create(0)('')(false)('https://jsonplaceholder.typicode.com/todos/1')
 
-// Msg :: FetchData | FetchedData ( Number, String) | FetchError String
+// Msg :: FetchData | FetchedData | FetchError
 const Msg = Union({
   FetchData: [],
   FetchedData: [Number, String],
@@ -109,12 +109,12 @@ const Update = model => Msg.case({
 
 // view :: Model -> Html Msg
 const View = ({ userId, title, fetched }) =>
-  f('div', [],
+  div([],
     [
-      f('button', [onClick(Msg.FetchData)], [Text('Fetch Data')]),
-      fetched && f('div', [], [
-        f('h3', [], [Text(userId)]),
-        f('h3', [], [Text(title)])
+      button([onClick(Msg.FetchData)], [Text('Fetch Data')]),
+      fetched && div([], [
+        h3([], [Text(userId)]),
+        h3([], [Text(title)])
       ])
     ]
   );
@@ -130,6 +130,14 @@ run({
   Root
 });
 ```
+
+## Performance
+
+Elvish uses [Inferno](https://github.com/infernojs/inferno) as its Vdom which makes it insanely fast, even faster than React and Elm itself.
+
+Here is the jS-benchmark
+
+<img src="docs/benchmark.png" height="500" width="350" />
 
 ## Types
 

@@ -1,6 +1,6 @@
 {
   "name": "elvish",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "license": "MIT",
   "main": "dist/main.js",
   "module": "dist/main.js",
@@ -8,7 +8,12 @@
     "@babel/core": "^7.2.2",
     "@babel/plugin-transform-react-jsx": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
+    "@hellpack/eslint-config-hellpack": "^2.2.0",
     "babel-plugin-inferno": "^6.0.4",
+    "eslint": "^5.15.3",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "prettier": "^1.16.4",
     "rollup": "^1.0.0",
     "rollup-plugin-babel": "^4.2.0",
     "rollup-plugin-commonjs": "^9.2.0",
@@ -17,6 +22,7 @@
     "rollup-plugin-uglify": "^6.0.1"
   },
   "dependencies": {
+    "@kimera/io": "^0.1.1",
     "inferno": "^7.0.5",
     "inferno-hyperscript": "^7.0.5",
     "ramda": "^0.26.1"
@@ -26,8 +32,7 @@
     "build": "rollup --config --configDebug",
     "build:basic": "rollup --config=example/basic/rollup.config.js",
     "build:ea": "rollup --config=example/elm-architecture/rollup.config.js",
-    "build:http": "rollup --config=example/http/rollup.config.js",
-    "publish": "npm publish"
+    "build:http": "rollup --config=example/http/rollup.config.js"
   },
   "author": {
     "name": "Kanit Sharma",
