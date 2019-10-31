@@ -287,3 +287,5 @@ Only way to run Effects in an elvish application is to return a tuple from the u
   // Maps both sides of the Effect.
 
 ```
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
